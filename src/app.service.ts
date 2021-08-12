@@ -17,8 +17,9 @@ export class AppService {
       .get(
         `${this.apiUrl}/api/catalog_system/pub/products/search/${brand}?map=b`,
         {
-          headers: { cookie: segment },
-      })
+          headers: { cookie: `vtex_segment=${segment}` },
+        },
+      )
       .pipe(map((product) => product.data));
   }
 }
