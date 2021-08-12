@@ -1,13 +1,14 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AppService } from './app.service';
+import { QueryParamsDto } from './dto';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get(':brand')
-  getProductsByBrand(@Param('brand') brand: string): Observable<any[]> {
-    return this.appService.getProductsByBrand(brand);
+  @Get()
+  getProductsByBrand(@Query() queryParams: QueryParamsDto): Observable<any[]> {
+    return this.appService.getProductsByBrand(queryParams);
   }
 }

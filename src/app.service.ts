@@ -5,15 +5,20 @@ import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class AppService {
+  private apiUrl = this.configService.get<string>('VTEX_URL');
+
   constructor(
     private httpService: HttpService,
     private configService: ConfigService,
   ) {}
 
-  getProductsByBrand(brand: string): Observable<any[]> {
-    const vtexApi = this.configService.get<string>('VTEX_URL');
+  getProductsByBrand({ brand, segment }): Observable<any[]> {
     return this.httpService
-      .get(`${vtexApi}/api/catalog_system/pub/products/search/${brand}?map=b`)
+      .get(
+        `${this.apiUrl}/api/catalog_system/pub/products/search/${brand}?map=b`,
+        {
+          headers: { cookie: segment },
+      })
       .pipe(map((product) => product.data));
   }
 }
