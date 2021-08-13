@@ -12,12 +12,13 @@ export class AppService {
     private configService: ConfigService,
   ) {}
 
-  getProductsByBrand({ brand, segment }): Observable<any[]> {
+  getProductsByBrand({ brand, segment, from, to }): Observable<any[]> {
     return this.httpService
       .get(
         `${this.apiUrl}/api/catalog_system/pub/products/search/${brand}?map=b`,
         {
           headers: { cookie: `vtex_segment=${segment}` },
+          params: { _from: from, _to: to },
         },
       )
       .pipe(map((product) => product.data));

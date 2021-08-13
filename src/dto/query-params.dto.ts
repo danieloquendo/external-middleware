@@ -6,4 +6,8 @@ export class QueryParamsDto {
 
   @IsNotEmpty()
   brand: string;
+
+  from: number;
+
+  to: number;
 }
